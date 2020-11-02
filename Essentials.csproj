@@ -12,12 +12,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	<Reference Include="Obsidian.API">
-	<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.API\bin\Debug\netcoreapp3.1\Obsidian.API.dll</HintPath>
-	</Reference>
-	<Reference Include="Obsidian.CommandFramework">
-	<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.CommandFramework\bin\Debug\netcoreapp3.1\Obsidian.CommandFramework.dll</HintPath>
-	</Reference>
+		<Reference Include="Obsidian.API">
+			<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.API\bin\Debug\netcoreapp3.1\Obsidian.API.dll</HintPath>
+		</Reference>
+		<Reference Include="Obsidian.CommandFramework">
+			<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.CommandFramework\bin\Debug\netcoreapp3.1\Obsidian.CommandFramework.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	</Project>
