@@ -1,4 +1,4 @@
-# Essentials for Obisidian
+# Essentials for Obsidian
 Remake of the famous Essentials(X) Bukkit/Spigot plugin for Obsidian.
 
 ## Commands
