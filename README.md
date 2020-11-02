@@ -11,9 +11,9 @@ Remake of the famous Essentials(X) Bukkit/Spigot plugin for Obsidian.
 
 ### Work In Progress features
 | Status | Command | Command description | Command permission |
-|:-:|-|-|
-| <ul><li>[ ] </li></ul> | sethome | Set home to your current location. |
-| <ul><li>[ ] </li></ul> | delhome | Removes a home. |
+|:-:|-|-|-|
+| <ul><li>[ ] </li></ul> | sethome | Set home to your current location. |  |
+| <ul><li>[ ] </li></ul> | delhome | Removes a home. |  |
 
 ### Planned features
 Not all of these commands will be implemented.
