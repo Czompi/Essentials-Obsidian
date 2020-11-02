@@ -158,6 +158,7 @@ Not all of these commands will be implemented.
 
 ## Events
 - [ ] First time login message will be implemented.
+- [x] Login information message is implemented (`motd.txt`).
 - [ ] I'll probably implement server MOTD change in the future.
 - [ ] **Login/Logout message override wont be implemented, because this function is integrated into [Obsidian](https://github.com/Naamloos/Obsidian).**
 
