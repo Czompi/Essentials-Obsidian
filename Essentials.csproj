@@ -1,11 +1,11 @@
-	<Project Sdk="Microsoft.NET.Sdk">
+﻿	<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 	<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<OutputPath>..\..\GitHub.Naamloos\Obsidian\bin\Debug\netcoreapp3.1\Server-0\plugins\</OutputPath>
+		<OutputPath>..\..\GitHub.Naamloos\Obsidian\Obsidian\bin\Debug\netcoreapp3.1\Server-0\plugins\</OutputPath>
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
@@ -14,9 +14,11 @@
 	<ItemGroup>
 		<Reference Include="Obsidian.API">
 			<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.API\bin\Debug\netcoreapp3.1\Obsidian.API.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
 		<Reference Include="Obsidian.CommandFramework">
 			<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.CommandFramework\bin\Debug\netcoreapp3.1\Obsidian.CommandFramework.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
 

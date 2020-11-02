@@ -20,7 +20,7 @@ Not all of these commands will be implemented.
 | Status | Command | Command description |
 |:-:|-|-|
 | <ul><li>[ ] </li></ul> | gc | Reports memory, uptime and tick info. |
-
+| <ul><li>[ ] </li></ul> | kill | Kills specified player. |
 | <ul><li>[ ] </li></ul> | tpa | Request to teleport to the specified player. |
 | <ul><li>[ ] </li></ul> | tpacancel | Cancel all outstanding teleport requests. Specify [player] to cancel requests with them. |
 | <ul><li>[ ] </li></ul> | tpaccept | Accepts a teleport request. |
@@ -36,17 +36,15 @@ Not all of these commands will be implemented.
 | <ul><li>[ ] </li></ul> | tpdeny | Reject a teleport request. |
 | <ul><li>[ ] </li></ul> | tpohere | Teleport here override for tptoggle. |
 | <ul><li>[ ] </li></ul> | top | Teleport to the highest block at your current position. |
-
 | <ul><li>[ ] </li></ul> | editsign | Edits a sign in the world. |
-
 | <ul><li>[ ] </li></ul> | warp | List all warps or warp to the specified location. |
 | <ul><li>[ ] </li></ul> | setwarp | Creates a new warp. |
 | <ul><li>[ ] </li></ul> | delwarp | Deletes the specified warp. |
 
-| <ul><li>[ ] </li></ul> | kill | Kills specified player. |
-
 
 ### Remaining commands (not decided yet, what I'll do with them)
+| Status | Command | Command description |
+|:-:|-|-|
 | <ul><li>[ ] </li></ul> | repair | Repairs the durability of one or all items. |
 | <ul><li>[ ] </li></ul> | msgtoggle | Blocks receiving all private messages. |
 | <ul><li>[ ] </li></ul> | setjail | Creates a jail where you specified named [jailname]. |
