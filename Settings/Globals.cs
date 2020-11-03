@@ -1,9 +1,11 @@
 ﻿using Essentials.Configs;
 using Essentials.Plugin;
+using Obsidian.API.Plugins;
 using Obsidian.API.Plugins.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Essentials.Settings
 {
@@ -16,8 +18,8 @@ namespace Essentials.Settings
             {
 #if DEBUG
                 return $"{Version}-DEBUG";
-/*#elif SNAPSHOT
-                return $"{Version}-SNAPSHOT";*/
+#elif SNAPSHOT
+                return $"{Version}-SNAPSHOT";
 #elif RELEASE
                 return $"{Version}-RELEASE";
 #endif
@@ -28,19 +30,20 @@ namespace Essentials.Settings
         {
             get
             {
-                return new Version("0.0.1");
+                return PluginInfo.Version;
             }
         }
 
         public static string RenderColoredChatMessage(string message)
         {
-            return message.Replace("&", "§");
+            return string.IsNullOrEmpty(message) ? "" : message.Replace("&", "§");
         }
 
         public static ILogger Logger { get; internal set; }
         public static IFileReader FileReader { get; internal set; }
         public static IFileWriter FileWriter { get; internal set; }
         public static ConfigManager Configs { get; internal set; }
+        public static IPluginInfo PluginInfo { get; internal set; }
         #endregion
 
         #region Files
@@ -71,7 +74,7 @@ namespace Essentials.Settings
                     return Path.Combine(WorkingDirectory, "config.json");
                 }
             }
-            
+
             public static string HomesDir
             {
                 get
@@ -86,7 +89,7 @@ namespace Essentials.Settings
             {
                 return Path.Combine(HomesDir, $"{uuid.ToString().Replace("-", "")}.json");
             }
-            
+
             public static string WarpsDir
             {
                 get
@@ -114,22 +117,23 @@ namespace Essentials.Settings
                     return "&6Welcome, {PLAYER}&6!\n&6Type &c/help&6 for a list of commands.\n&6Type &c/list&6 to see who else is online.\n&6Players online:&c {ONLINE} &6- World time:&c {WORLDTIME12}";
                 }
             }
+
+            public static object Config { get; internal set; }
         }
         #endregion
 
-        #region Command usage render by command name
-        private ChatMessage SendCommandUsage(string command)
+        #region Render command usage
+        /*internal static ChatMessage RenderCommandUsage(string commandUsage)
         {
-            var currentCommand = Commands.Where(x => x.Key.ToLower().StartsWith(command.ToLower())).FirstOrDefault();
             var commands = ChatMessage.Simple("");
-            var commandSuggest = currentCommand.Key.Contains(" ") ? string.Join(" ", currentCommand.Key.Split(" ").Where(x => !x.StartsWith("<"))) + " " : currentCommand.Key;
+            var commandSuggest = commandUsage.Contains(" ") ? $"{commandUsage.Split(" ").FirstOrDefault()} " : commandUsage;
             var usage = new ChatMessage
             {
-                Text = $"{ChatColor.Red}/{currentCommand.Key}",
+                Text = $"{ChatColor.Red}{commandUsage}",
                 ClickEvent = new TextComponent
                 {
                     Action = ETextAction.SuggestCommand,
-                    Value = $"/{commandSuggest}"
+                    Value = $"{commandSuggest}"
                 },
                 HoverEvent = new TextComponent
                 {
@@ -146,7 +150,7 @@ namespace Essentials.Settings
             commands.AddExtra(prefix);
             commands.AddExtra(usage);
             return commands;
-        }
+        }*/
         #endregion
 
         #region Command dictionary

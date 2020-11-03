@@ -1,25 +1,35 @@
-﻿	<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-	<TargetFramework>netcoreapp3.1</TargetFramework>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Configurations>Debug;Release;Snapshot</Configurations>
+    <Version>0.0.1</Version>
+    <Authors>Czompi</Authors>
+    <Company>Czompi</Company>
+    <Product>Essentials</Product>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<OutputPath>..\..\GitHub.Naamloos\Obsidian\Obsidian\bin\Debug\netcoreapp3.1\Server-0\plugins\</OutputPath>
-		<DebugType>none</DebugType>
-		<DebugSymbols>false</DebugSymbols>
-		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-	</PropertyGroup>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<Reference Include="Obsidian.API">
-			<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.API\bin\Debug\netcoreapp3.1\Obsidian.API.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="Obsidian.CommandFramework">
-			<HintPath>..\..\GitHub.Naamloos\Obsidian\Obsidian.CommandFramework\bin\Debug\netcoreapp3.1\Obsidian.CommandFramework.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-	</ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <!--<Move SourceFiles="$(OutputPath)$(AssemblyName).pdb" DestinationFiles="$(OutputPath)..\..\$(AssemblyName)-$(Configuration.ToLower()).pdb" />-->
+    <Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
+  </Target>
+  <ItemGroup>
+    <Compile Remove="Commands\EssentialsCommandModule.cs" />
+    <Compile Remove="Commands\HomeCommandModule.cs" />
+  </ItemGroup>
 
-	</Project>
+  <ItemGroup>
+    <None Include="Commands\EssentialsCommandModule.cs" />
+    <None Include="Commands\HomeCommandModule.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
+      <Private>false</Private>
+    </PackageReference>
+    <PackageReference Include="Obsidian.API" Version="1.0.105">
+      <Private>false</Private>
+    </PackageReference>
+  </ItemGroup>
+</Project>

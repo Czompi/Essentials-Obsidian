@@ -1,8 +1,12 @@
-﻿using Obsidian.CommandFramework.Attributes;
+﻿using Essentials.Configs;
+using Essentials.Settings;
+using Obsidian.API;
+using Obsidian.CommandFramework.Attributes;
 using Obsidian.CommandFramework.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Essentials.Commands
 {
@@ -13,7 +17,7 @@ namespace Essentials.Commands
         [CommandInfo("Switch gamemode.")]
         public async Task HomeAsync(ObsidianContext Context)
         {
-            var chatMessage = Globals.SendCommandUsage("home");
+            var chatMessage = Globals.RenderCommandUsage("home");
             await Context.Player.SendMessageAsync(chatMessage);
         }
 
@@ -24,7 +28,7 @@ namespace Essentials.Commands
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
             if (args.Count == 1)
             {
-                var homes = EssentialsConfigs.PlayerHomes[Context.Player.Uuid].Homes;
+                var homes = Globals.Configs.PlayerHomes[Context.Player.Uuid].Homes;
                 var home_ = homes.Where(x => x.Name.ToLower() == args[0].ToLower());
                 if (home_.Count() == 1)
                 {
@@ -38,14 +42,14 @@ namespace Essentials.Commands
                     catch (Exception ex)
                     {
                         chatMessage.AddExtra(ChatMessage.Simple($"Cannot teleport to {ChatColor.Red}{home.Name}{ChatColor.Reset}!"));
-                        if (Context.Server.Operators.IsOperator(Context.Player)) chatMessage.AddExtra(ChatMessage.Simple($" For more information, see console."));
-                        Context.Server.Logger.LogError(ex, $"{ChatColor.Red}{Context.Player.Username}{ChatColor.Reset} cannot teleport to {ChatColor.Red}{home.Name}{ChatColor.Reset}.");
+                        if (Context.Player.IsOperator) chatMessage.AddExtra(ChatMessage.Simple($" For more information, see console."));
+                        Globals.Logger.LogError(ex, $"{ChatColor.Red}{Context.Player.Username}{ChatColor.Reset} cannot teleport to {ChatColor.Red}{home.Name}{ChatColor.Reset}.");
                     }
                 }
             }
             else
             {
-                chatMessage = SendCommandUsage("home");
+                chatMessage = Globals.RenderCommandUsage("home");
             }
             await Context.Player.SendMessageAsync(chatMessage);
         }
@@ -98,7 +102,7 @@ namespace Essentials.Commands
         public async Task HomesAsync(ObsidianContext Context, [Remaining] string args_)
         {
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
-            var chatMessage = SendCommandUsage("homes");
+            var chatMessage = Globals.RenderCommandUsage("/homes");
             await Context.Player.SendMessageAsync(chatMessage);
         }
         #endregion

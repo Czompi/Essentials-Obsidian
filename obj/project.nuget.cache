@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "mmxQ829gsaReutO6LPe1lefM3rBq9uFAwXBiy1TdVOMtf+0t8BRNQ+WC7a244SBoGlt/b77cxZg/c46QjGFcWg==",
+  "dgSpecHash": "QISIKzFEAcKAB3O6i4ChPZ09Oa5yCDZSZTPapF4ZE3Sz8jGmC8RrpKP70p+8vEbHidlc+ojVWfGqyuoHWln3Cw==",
   "success": true,
   "projectFilePath": "D:\\GitHub.ObsidianPlugins\\Essentials\\Essentials.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\czompo.david\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\czompo.david\\.nuget\\packages\\obsidian.api\\1.0.105\\obsidian.api.1.0.105.nupkg.sha512"
+  ],
   "logs": []
 }

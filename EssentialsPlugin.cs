@@ -1,4 +1,4 @@
-﻿using Essentials.Commands;
+﻿//using Essentials.Commands;
 using Essentials.Configs;
 using Essentials.Settings;
 using Obsidian.API;
@@ -17,19 +17,27 @@ namespace Essentials.Plugin
         // Any interface from Obsidian.Plugins.Services can be injected into properties
         [Inject] public ILogger Logger { get; set; }
         [Inject] public IFileReader IFileReader { get; set; }
+        [Inject] public IPluginInfo IPluginInfo { get; set; }
         [Inject] public IFileWriter IFileWriter { get; set; }
         // One of server messages, called when an event occurs
         public async Task OnLoad(IServer server)
         {
-            Logger.Log($"Essentials §e{Globals.VersionFull}§r loading...");
+            Globals.PluginInfo = Info;
+            Logger.Log($"Essentials §6{Globals.VersionFull}§r loading...");
+
+            Logger.Log($"§7[Global]§r §6Loading§r global things...");
             Globals.Logger = Logger;
             Globals.FileReader = IFileReader;
             Globals.FileWriter = IFileWriter;
             Globals.Configs = new ConfigManager();
-            Logger.Log($"Global things §asuccessfully§r assigned.");
-            Logger.Log($"Registering §ecommands§r...");
-            server.RegisterCommandClass<EssentialsCommandModule>();
-            Logger.Log($"Commands §asuccessfully§r registered...");
+            Logger.Log($"§7[Global]§r Global things §asuccessfully§r assigned.");
+
+            Logger.Log($"§7[Commands]§r Registering §6commands§r...");
+            Logger.Log($"§7[Commands]§r Skipping due to missing §7ChatMessage§r.");
+            //server.RegisterCommandClass<EssentialsCommandModule>();
+            //server.RegisterCommandClass<HomeCommandModule>();
+            Logger.Log($"§7[Commands]§r Commands §asuccessfully§r registered...");
+
             Logger.Log($"Essentials §a{Globals.VersionFull}§r loaded!");
             await Task.CompletedTask;
         }

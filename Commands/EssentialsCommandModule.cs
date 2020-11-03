@@ -1,7 +1,5 @@
-﻿using Essentials.Configs;
+﻿using Essentials.Settings;
 using Obsidian.API;
-using Obsidian.CommandFramework.Attributes;
-using Obsidian.CommandFramework.Entities;
 using Obsidian.Commands;
 using System;
 using System.Collections.Generic;
@@ -12,11 +10,10 @@ namespace Essentials.Commands
 {
     public class EssentialsCommandModule : BaseCommandClass
     {
-        private readonly string Version = "0.0.1-DEV";
 
         #region essentials
         [Command("essentials", "ess")]
-        [CommandInfo("Essentials available commands.")]
+        [CommandInfo("Essentials available commands.", "/essentials <reload|debug|commands>")]
         public async Task EssentialsAsync(ObsidianContext Context)
         {
             var commands = ChatMessage.Simple("");
@@ -60,7 +57,7 @@ namespace Essentials.Commands
                     chatMessage = ChatMessage.Simple("");
                     var cmds_prefix = new ChatMessage
                     {
-                        Text = $"{ChatColor.Gray}Essentials {ChatColor.Red}{Version}{ChatColor.Gray} commands:"
+                        Text = $"{ChatColor.Gray}Essentials {ChatColor.Red}{Globals.VersionFull}{ChatColor.Gray} commands:"
                     };
                     chatMessage.AddExtra(cmds_prefix);
                     var cmds_list = ChatMessage.Simple("");
@@ -115,31 +112,9 @@ namespace Essentials.Commands
 
                 #region Not valid args[0]
                 default:
-                    chatMessage = ChatMessage.Simple($"{args[0]}");
-                    var prefix = new ChatMessage
-                    {
-                        Text = $"{ChatColor.Red}Usage: "
-                    };
-
-                    var usage = new ChatMessage
-                    {
-                        Text = $"{ChatColor.Red}/essentials <reload/debug/commands>",
-                        ClickEvent = new TextComponent
-                        {
-                            Action = ETextAction.SuggestCommand,
-                            Value = $"/essentials "
-                        },
-                        HoverEvent = new TextComponent
-                        {
-                            Action = ETextAction.ShowText,
-                            Value = $"Click to suggest the command"
-                        }
-                    };
-
-                    chatMessage.AddExtra(prefix);
-                    chatMessage.AddExtra(usage);
+                    chatMessage = Globals.RenderCommandUsage("/essentials <reload/debug/commands>");
                     break;
-                    #endregion
+                #endregion
             }
             await Context.Player.SendMessageAsync(chatMessage);
         }
@@ -147,10 +122,10 @@ namespace Essentials.Commands
 
         #region gm
         [Command("gm")]
-        [CommandInfo("Switch gamemode.")]
+        [CommandInfo("Switch gamemode.", "/gm <0|1|2|3>")]
         public async Task GamemodeAsync(ObsidianContext Context)
         {
-            var chatMessage = SendCommandUsage("gm");
+            var chatMessage = Globals.RenderCommandUsage("gm");
             await Context.Player.SendMessageAsync(chatMessage);
         }
 
@@ -167,7 +142,7 @@ namespace Essentials.Commands
                     var gmInt = Int32.Parse(args[0]);
                     if (gmInt > 3 && gmInt < 0)
                     {
-                        chatMessage = SendCommandUsage("gm");
+                        chatMessage = Globals.RenderCommandUsage("gm");
                     }
                     else
                     {
@@ -180,13 +155,13 @@ namespace Essentials.Commands
                 }
                 if (gamemode != null)
                 {
-                    Context.Player.Gamemode = gamemode.Value;
+                    await Context.Player.SetGamemodeAsync(gamemode.Value);
                     chatMessage = ChatMessage.Simple($"{ChatColor.Reset}Your game mode set to {ChatColor.Red}{gamemode.Value}{ChatColor.Reset}.");
                 }
             }
             else
             {
-                chatMessage = SendCommandUsage("gm");
+                chatMessage = Globals.RenderCommandUsage("gm");
             }
             await Context.Player.SendMessageAsync(chatMessage);
         }
