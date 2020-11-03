@@ -24,12 +24,15 @@ namespace Essentials.Plugin
             Globals.PluginInfo = Info;
             Logger.Log($"Essentials §9{Globals.VersionFull}§r loading...");
 
-            Logger.Log($"§7[Global]§r §9Loading§r global things...");
+            Logger.Log($"§7[Global]§r Global things are §9loading§r...");
             Globals.Logger = Logger;
             Globals.FileReader = IFileReader;
             Globals.FileWriter = IFileWriter;
-            Globals.Configs = new ConfigManager();
             Logger.Log($"§7[Global]§r Global things §asuccessfully§r assigned.");
+
+            Logger.Log($"§7[Config]§r Config files are §9loading§r...");
+            Globals.Configs = new ConfigManager();
+            Logger.Log($"§7[Config]§r Config files are loaded §asuccessfully§r.");
 
             Logger.Log($"§7[Commands]§r Registering §9commands§r...");
             Logger.Log($"§7[Commands]§r Skipping due to missing §7ChatMessage§r.");

@@ -1,5 +1,7 @@
 ﻿using Essentials.Settings;
 using Obsidian.API;
+using Obsidian.CommandFramework.Attributes;
+using Obsidian.CommandFramework.Entities;
 using Obsidian.Commands;
 using System;
 using System.Collections.Generic;

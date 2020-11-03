@@ -14,21 +14,12 @@
     <!--<Move SourceFiles="$(OutputPath)$(AssemblyName).pdb" DestinationFiles="$(OutputPath)..\..\$(AssemblyName)-$(Configuration.ToLower()).pdb" />-->
     <Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
   </Target>
-  <ItemGroup>
-    <Compile Remove="Commands\EssentialsCommandModule.cs" />
-    <Compile Remove="Commands\HomeCommandModule.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Commands\EssentialsCommandModule.cs" />
-    <None Include="Commands\HomeCommandModule.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
       <Private>false</Private>
     </PackageReference>
-    <PackageReference Include="Obsidian.API" Version="1.0.105">
+    <PackageReference Include="Obsidian.API" Version="1.0.113">
       <Private>false</Private>
     </PackageReference>
   </ItemGroup>
