@@ -17,22 +17,21 @@ namespace Essentials.Plugin
         // Any interface from Obsidian.Plugins.Services can be injected into properties
         [Inject] public ILogger Logger { get; set; }
         [Inject] public IFileReader IFileReader { get; set; }
-        [Inject] public IPluginInfo IPluginInfo { get; set; }
         [Inject] public IFileWriter IFileWriter { get; set; }
         // One of server messages, called when an event occurs
         public async Task OnLoad(IServer server)
         {
             Globals.PluginInfo = Info;
-            Logger.Log($"Essentials §6{Globals.VersionFull}§r loading...");
+            Logger.Log($"Essentials §9{Globals.VersionFull}§r loading...");
 
-            Logger.Log($"§7[Global]§r §6Loading§r global things...");
+            Logger.Log($"§7[Global]§r §9Loading§r global things...");
             Globals.Logger = Logger;
             Globals.FileReader = IFileReader;
             Globals.FileWriter = IFileWriter;
             Globals.Configs = new ConfigManager();
             Logger.Log($"§7[Global]§r Global things §asuccessfully§r assigned.");
 
-            Logger.Log($"§7[Commands]§r Registering §6commands§r...");
+            Logger.Log($"§7[Commands]§r Registering §9commands§r...");
             Logger.Log($"§7[Commands]§r Skipping due to missing §7ChatMessage§r.");
             //server.RegisterCommandClass<EssentialsCommandModule>();
             //server.RegisterCommandClass<HomeCommandModule>();
