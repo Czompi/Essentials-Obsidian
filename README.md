@@ -1,4 +1,5 @@
 # Essentials for Obsidian
+[![Build status](https://ci.appveyor.com/api/projects/status/0qg4509r8tmmpvsq/branch/master?svg=true)](https://ci.appveyor.com/project/Czompi/essentials-obsidian/branch/master)
 Remake of the famous Essentials(X) Bukkit/Spigot plugin for Obsidian.
 
 ## Commands
