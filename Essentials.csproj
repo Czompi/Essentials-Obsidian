@@ -13,13 +13,24 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <!--<Move SourceFiles="$(OutputPath)$(AssemblyName).pdb" DestinationFiles="$(OutputPath)..\..\$(AssemblyName)-$(Configuration.ToLower()).pdb" />-->
     <Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
+    <Copy SourceFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" DestinationFiles="$(OutputPath)..\..\..\..\..\GitHub.Naamloos\Obsidian\Obsidian\bin\Debug\netcoreapp3.1\Server-0\plugins\netcoreapp3.1\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
   </Target>
+
+  <ItemGroup>
+    <Compile Remove="Utils\Chat\ChatMessage.cs" />
+    <Compile Remove="Utils\Chat\TextComponent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Utils\Chat\ChatMessage.cs" />
+    <None Include="Utils\Chat\TextComponent.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
       <Private>false</Private>
     </PackageReference>
-    <PackageReference Include="Obsidian.API" Version="1.0.113">
+    <PackageReference Include="Obsidian.API" Version="1.0.136">
       <Private>false</Private>
     </PackageReference>
   </ItemGroup>

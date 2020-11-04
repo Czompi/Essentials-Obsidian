@@ -16,6 +16,9 @@ Remake of the famous Essentials(X) Bukkit/Spigot plugin for Obsidian.
 |:-:|-|-|-|
 | <ul><li>[ ] </li></ul> | sethome | Set home to your current location. |  |
 | <ul><li>[ ] </li></ul> | delhome | Removes a home. |  |
+| <ul><li>[ ] </li></ul> | warp | List all warps or warp to the specified location. |
+| <ul><li>[ ] </li></ul> | setwarp | Creates a new warp. |
+| <ul><li>[ ] </li></ul> | delwarp | Deletes the specified warp. |
 
 ### Planned features
 Not all of these commands will be implemented.
@@ -39,9 +42,6 @@ Not all of these commands will be implemented.
 | <ul><li>[ ] </li></ul> | tpohere | Teleport here override for tptoggle. |
 | <ul><li>[ ] </li></ul> | top | Teleport to the highest block at your current position. |
 | <ul><li>[ ] </li></ul> | editsign | Edits a sign in the world. |
-| <ul><li>[ ] </li></ul> | warp | List all warps or warp to the specified location. |
-| <ul><li>[ ] </li></ul> | setwarp | Creates a new warp. |
-| <ul><li>[ ] </li></ul> | delwarp | Deletes the specified warp. |
 
 
 ### Remaining commands (not decided yet, what I'll do with them)

@@ -1,5 +1,6 @@
 ﻿using Essentials.Configs;
-using Essentials.Plugin;
+using Newtonsoft.Json;
+using Obsidian.API;
 using Obsidian.API.Plugins;
 using Obsidian.API.Plugins.Services;
 using System;
@@ -85,7 +86,7 @@ namespace Essentials.Settings
                 }
             }
 
-            public static string PlayerHomes(Guid uuid)
+            public static string PlayerHome(Guid uuid)
             {
                 return Path.Combine(HomesDir, $"{uuid.ToString().Replace("-", "")}.json");
             }
@@ -95,7 +96,7 @@ namespace Essentials.Settings
                 get
                 {
                     var dir = Path.Combine(WorkingDirectory, "warps");
-                    if (FileWriter.DirectoryExists(dir)) FileWriter.CreateDirectory(dir);
+                    if (!FileWriter.DirectoryExists(dir)) FileWriter.CreateDirectory(dir);
                     return dir;
                 }
             }
@@ -104,6 +105,29 @@ namespace Essentials.Settings
             {
                 return Path.Combine(WarpsDir, $"{name.ToLower()}.json");
             }
+        }
+        #endregion
+
+        #region RenderClickableCommand
+        internal static IChatMessage RenderClickableCommand(string name, string hoverText = "Click to suggest the command.", string suggestionPrefix = "")
+        {
+            var command = name.Contains(" ") ? string.Join(" ", name.Split(" ").Where(x => !x.StartsWith("<"))) + " " : name;
+            if (suggestionPrefix != "") command = $"{suggestionPrefix.Trim(' ')} {name}";
+            var chatMessage = IChatMessage.CreateNew();
+            chatMessage.Text = $"{ChatColor.Red}{(suggestionPrefix != "" ? "" : (!name.StartsWith("/") ? "/" : ""))}{name}";
+
+            var clickEvent = ITextComponent.CreateNew();
+            clickEvent.Action = ETextAction.SuggestCommand;
+            clickEvent.Value = $"{(!command.StartsWith("/") ? "/" : "")}{command}";
+            chatMessage.ClickEvent = clickEvent;
+
+            var hoverEvent = ITextComponent.CreateNew();
+            hoverEvent.Action = ETextAction.ShowText;
+            hoverEvent.Value = $"{hoverText}";
+            chatMessage.HoverEvent = hoverEvent;
+            Globals.Logger.LogDebug(JsonConvert.SerializeObject(chatMessage));
+            
+            return chatMessage;
         }
         #endregion
 
@@ -123,38 +147,40 @@ namespace Essentials.Settings
         #endregion
 
         #region Render command usage
-        /*internal static ChatMessage RenderCommandUsage(string commandUsage)
+        internal static IChatMessage RenderCommandUsage(string commandUsage, string hoverText = "Click to suggest the command.")
         {
-            var commands = ChatMessage.Simple("");
+            var chatMessage = IChatMessage.Simple("");
+
+            #region prefix
+            var prefix = IChatMessage.CreateNew();
+            prefix.Text = $"{ChatColor.Red}Usage: ";
+            chatMessage.AddExtra(prefix);
+            #endregion
+
+            #region usage
+            var usage = IChatMessage.CreateNew();
             var commandSuggest = commandUsage.Contains(" ") ? $"{commandUsage.Split(" ").FirstOrDefault()} " : commandUsage;
-            var usage = new ChatMessage
-            {
-                Text = $"{ChatColor.Red}{commandUsage}",
-                ClickEvent = new TextComponent
-                {
-                    Action = ETextAction.SuggestCommand,
-                    Value = $"{commandSuggest}"
-                },
-                HoverEvent = new TextComponent
-                {
-                    Action = ETextAction.ShowText,
-                    Value = $"Click to suggest the command"
-                }
-            };
+            usage.Text = $"{ChatColor.Red}{commandUsage}";
 
-            var prefix = new ChatMessage
-            {
-                Text = $"{ChatColor.Red}Usage: "
-            };
+            var clickEvent = ITextComponent.CreateNew();
+            clickEvent.Action = ETextAction.SuggestCommand;
+            clickEvent.Value = $"{commandSuggest}";
+            usage.ClickEvent = clickEvent;
 
-            commands.AddExtra(prefix);
-            commands.AddExtra(usage);
-            return commands;
-        }*/
+            var hoverEvent = ITextComponent.CreateNew();
+            hoverEvent.Action = ETextAction.ShowText;
+            hoverEvent.Value = $"{hoverText}";
+            usage.HoverEvent = hoverEvent;
+
+            chatMessage.AddExtra(usage);
+            #endregion
+
+            return chatMessage;
+        }
         #endregion
 
         #region Command dictionary
-        private Dictionary<string, string> Commands = new Dictionary<string, string>
+        internal static Dictionary<string, string> Commands = new Dictionary<string, string>
         {
             {"/gm <0|1|2|3>", "Switch gamemode."},
             {"/homes", "List all homes."},

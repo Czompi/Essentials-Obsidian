@@ -16,75 +16,31 @@ namespace Essentials.Commands
         #region essentials
         [Command("essentials", "ess")]
         [CommandInfo("Essentials available commands.", "/essentials <reload|debug|commands>")]
-        public async Task EssentialsAsync(ObsidianContext Context)
-        {
-            var commands = ChatMessage.Simple("");
-            var usage = new ChatMessage
-            {
-                Text = $"{ChatColor.Red}/essentials <reload/debug/commands>",
-                ClickEvent = new TextComponent
-                {
-                    Action = ETextAction.SuggestCommand,
-                    Value = $"/essentials "
-                },
-                HoverEvent = new TextComponent
-                {
-                    Action = ETextAction.ShowText,
-                    Value = $"Click to suggest the command"
-                }
-            };
-
-            var prefix = new ChatMessage
-            {
-                Text = $"{ChatColor.Red}Usage: "
-            };
-
-            commands.AddExtra(prefix);
-            commands.AddExtra(usage);
-
-            await Context.Player.SendMessageAsync(commands);
-        }
+        public async Task EssentialsAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/essentials <reload/debug/commands>"));
 
         [CommandOverload]
         public async Task EssentialsAsync(ObsidianContext Context, [Remaining] string args_)
         {
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
-            var chatMessage = ChatMessage.Simple("");
+            var chatMessage = IChatMessage.Simple("");
             switch (args[0].ToLower())
             {
                 #region commands
                 case "commands":
                     // List all of the commands of this plugin
                     //It will be necessary when the plugin system works fully and I does not really need to hard code this into the server to work properly.
-                    chatMessage = ChatMessage.Simple("");
-                    var cmds_prefix = new ChatMessage
-                    {
-                        Text = $"{ChatColor.Gray}Essentials {ChatColor.Red}{Globals.VersionFull}{ChatColor.Gray} commands:"
-                    };
+                    chatMessage = IChatMessage.Simple("");
+                    var cmds_prefix = IChatMessage.CreateNew();
+                    cmds_prefix.Text = $"{ChatColor.Gray}Essentials {ChatColor.Red}{Globals.VersionFull}{ChatColor.Gray} commands:";
                     chatMessage.AddExtra(cmds_prefix);
-                    var cmds_list = ChatMessage.Simple("");
-                    foreach (var cmd in Commands)
+                    var cmds_list = IChatMessage.Simple("");
+                    foreach (var cmd in Globals.Commands)
                     {
-                        var command = cmd.Key.Contains(" ") ? string.Join(" ", cmd.Key.Split(" ").Where(x => !x.StartsWith("<"))) + " " : cmd.Key;
-                        var commandName = new ChatMessage
-                        {
-                            Text = $"\n{ChatColor.Red}/{cmd.Key}",
-                            ClickEvent = new TextComponent
-                            {
-                                Action = ETextAction.SuggestCommand,
-                                Value = $"/{command}"
-                            },
-                            HoverEvent = new TextComponent
-                            {
-                                Action = ETextAction.ShowText,
-                                Value = $"Click to suggest the command"
-                            }
-                        };
+                        var commandName = IChatMessage.Simple("\n");
+                        commandName.AddExtra(Globals.RenderClickableCommand(cmd.Key));
 
-                        var commandInfo = new ChatMessage
-                        {
-                            Text = $"{ChatColor.Gray}:{ChatColor.Reset} {cmd.Value}{ChatColor.Reset}"
-                        };
+                        var commandInfo = IChatMessage.CreateNew();
+                        commandInfo.Text = $"{ChatColor.Gray}:{ChatColor.Reset} {cmd.Value}{ChatColor.Reset}";
 
                         cmds_list.AddExtra(commandName);
                         cmds_list.AddExtra(commandInfo);
@@ -102,11 +58,9 @@ namespace Essentials.Commands
                 #region reload
                 case "reload":
                     //It will be necessary when the plugin system works fully and I does not really need to hard code this into the server to work properly.
-                    chatMessage = ChatMessage.Simple("");
-                    var message = new ChatMessage
-                    {
-                        Text = $"{ChatColor.Gray}Essentials {ChatColor.Red}{Version}{ChatColor.Gray} successfully reloaded."
-                    };
+                    chatMessage = IChatMessage.Simple("");
+                    var message = IChatMessage.CreateNew();
+                    message.Text = $"{ChatColor.Gray}Essentials {ChatColor.Red}{Globals.VersionFull}{ChatColor.Gray} successfully reloaded.";
 
                     chatMessage.AddExtra(message);
                     break;
@@ -125,16 +79,12 @@ namespace Essentials.Commands
         #region gm
         [Command("gm")]
         [CommandInfo("Switch gamemode.", "/gm <0|1|2|3>")]
-        public async Task GamemodeAsync(ObsidianContext Context)
-        {
-            var chatMessage = Globals.RenderCommandUsage("gm");
-            await Context.Player.SendMessageAsync(chatMessage);
-        }
+        public async Task GamemodeAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/gm <0|1|2|3>"));
 
         [CommandOverload]
         public async Task GamemodeAsync(ObsidianContext Context, [Remaining] string args_)
         {
-            var chatMessage = ChatMessage.Simple("");
+            var chatMessage = IChatMessage.Simple("");
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
             Gamemode? gamemode = null;
             if (args.Count == 1)
@@ -144,7 +94,7 @@ namespace Essentials.Commands
                     var gmInt = Int32.Parse(args[0]);
                     if (gmInt > 3 && gmInt < 0)
                     {
-                        chatMessage = Globals.RenderCommandUsage("gm");
+                        chatMessage = Globals.RenderCommandUsage("/gm <0|1|2|3>");
                     }
                     else
                     {
@@ -158,12 +108,12 @@ namespace Essentials.Commands
                 if (gamemode != null)
                 {
                     await Context.Player.SetGamemodeAsync(gamemode.Value);
-                    chatMessage = ChatMessage.Simple($"{ChatColor.Reset}Your game mode set to {ChatColor.Red}{gamemode.Value}{ChatColor.Reset}.");
+                    chatMessage = IChatMessage.Simple($"{ChatColor.Reset}Your game mode set to {ChatColor.Red}{gamemode.Value}{ChatColor.Reset}.");
                 }
             }
             else
             {
-                chatMessage = Globals.RenderCommandUsage("gm");
+                chatMessage = Globals.RenderCommandUsage("/gm <0|1|2|3>");
             }
             await Context.Player.SendMessageAsync(chatMessage);
         }
