@@ -17,21 +17,31 @@
   </Target>
 
   <ItemGroup>
-    <Compile Remove="Utils\Chat\ChatMessage.cs" />
-    <Compile Remove="Utils\Chat\TextComponent.cs" />
+    <None Remove="Resources\Langs\*.json" />
+    <None Remove="Resources\*.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Utils\Chat\ChatMessage.cs" />
-    <None Include="Utils\Chat\TextComponent.cs" />
+    <EmbeddedResource Include="Resources\Langs\*.json" />
+    <EmbeddedResource Include="Resources\*.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
+    <Compile Remove="Configs\GlobalConfig.cs" />
+    <Compile Remove="Configs\Global\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Configs\GlobalConfig.cs" />
+    <None Include="Configs\Global\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Obsidian.API" Version="1.0.154">
       <Private>false</Private>
     </PackageReference>
-    <PackageReference Include="Obsidian.API" Version="1.0.136">
-      <Private>false</Private>
-    </PackageReference>
+	<PackageReference Include="System.Text.Json" Version="4.7.2">
+	  <Private>false</Private>
+	</PackageReference>
   </ItemGroup>
 </Project>

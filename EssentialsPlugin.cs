@@ -1,10 +1,13 @@
 ﻿using Essentials.Commands;
 using Essentials.Configs;
 using Essentials.Settings;
+using Essentials.Settings.Lang;
 using Obsidian.API;
 using Obsidian.API.Events;
 using Obsidian.API.Plugins;
 using Obsidian.API.Plugins.Services;
+using Obsidian.CommandFramework.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,6 +34,10 @@ namespace Essentials.Plugin
             Globals.FileWriter = IFileWriter;
             Logger.Log($"§7[Global]§r Global things §asuccessfully§r assigned.");
 
+            Logger.Log($"§7[Config]§r §9Detecting§r languages...");
+            Globals.Language = new LanguageManager();
+            Logger.Log($"§7[Config]§r Config files are loaded §asuccessfully§r.");
+
             Logger.Log($"§7[Config]§r Config files are §9loading§r...");
             Globals.Configs = new ConfigManager();
             Logger.Log($"§7[Config]§r Config files are loaded §asuccessfully§r.");
@@ -38,6 +45,10 @@ namespace Essentials.Plugin
             Logger.Log($"§7[Commands]§r Registering §9commands§r...");
             server.RegisterCommandClass<EssentialsCommandModule>();
             Logger.Log($"§7[Commands]§r Command module §aEssentialsCommandModule§r registered.");
+            server.RegisterCommandClass<GamemodeCommandModule>();
+            Logger.Log($"§7[Commands]§r Command module §aGamemodeCommandModule§r registered.");
+            server.RegisterCommandClass<StatisticsCommandModule>();
+            Logger.Log($"§7[Commands]§r Command module §aStatisticsCommandModule§r registered.");
             server.RegisterCommandClass<HomeCommandModule>();
             Logger.Log($"§7[Commands]§r Command module §aHomeCommandModule§r registered.");
             server.RegisterCommandClass<WarpCommandModule>();

@@ -1,5 +1,4 @@
 ﻿using Obsidian.API;
-using System;
 using System.Linq;
 
 namespace Essentials.Extensions
@@ -7,7 +6,9 @@ namespace Essentials.Extensions
     internal static class ObsidianExtensions
     {
         #region IPlayer Extensions
-        public static Boolean HasPermission(this IPlayer player, String permission) => player.Permissions.ToList().Select(x => x.ToLower()).Contains(permission.ToLower());
+        public static bool HasPermission(this IPlayer player, string permission) => player.Permissions.ToList().Select(x => x.ToLower()).Contains(permission.ToLower());
+
+        //public static bool HasPermissions(this IPlayer player, List<String> permissions) => HasPermission(player, permission);
         #endregion
     }
 }

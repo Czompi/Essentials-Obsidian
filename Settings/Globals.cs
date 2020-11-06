@@ -1,5 +1,5 @@
 ﻿using Essentials.Configs;
-using Newtonsoft.Json;
+using Essentials.Settings.Lang;
 using Obsidian.API;
 using Obsidian.API.Plugins;
 using Obsidian.API.Plugins.Services;
@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 
 namespace Essentials.Settings
 {
@@ -45,6 +46,7 @@ namespace Essentials.Settings
         public static IFileWriter FileWriter { get; internal set; }
         public static ConfigManager Configs { get; internal set; }
         public static IPluginInfo PluginInfo { get; internal set; }
+        public static LanguageManager Language { get; internal set; }
         #endregion
 
         #region Files
@@ -86,6 +88,11 @@ namespace Essentials.Settings
                 }
             }
 
+            public static string LanguageFile(String code)
+            {
+                return Path.Combine(HomesDir, $"messages_{code}.json");
+            }
+            
             public static string PlayerHome(Guid uuid)
             {
                 return Path.Combine(HomesDir, $"{uuid.ToString().Replace("-", "")}.json");
@@ -108,29 +115,6 @@ namespace Essentials.Settings
         }
         #endregion
 
-        #region RenderClickableCommand
-        internal static IChatMessage RenderClickableCommand(string name, string hoverText = "Click to suggest the command.", string suggestionPrefix = "")
-        {
-            var command = name.Contains(" ") ? string.Join(" ", name.Split(" ").Where(x => !x.StartsWith("<"))) + " " : name;
-            if (suggestionPrefix != "") command = $"{suggestionPrefix.Trim(' ')} {name}";
-            var chatMessage = IChatMessage.CreateNew();
-            chatMessage.Text = $"{ChatColor.Red}{(suggestionPrefix != "" ? "" : (!name.StartsWith("/") ? "/" : ""))}{name}";
-
-            var clickEvent = ITextComponent.CreateNew();
-            clickEvent.Action = ETextAction.SuggestCommand;
-            clickEvent.Value = $"{(!command.StartsWith("/") ? "/" : "")}{command}";
-            chatMessage.ClickEvent = clickEvent;
-
-            var hoverEvent = ITextComponent.CreateNew();
-            hoverEvent.Action = ETextAction.ShowText;
-            hoverEvent.Value = $"{hoverText}";
-            chatMessage.HoverEvent = hoverEvent;
-            Globals.Logger.LogDebug(JsonConvert.SerializeObject(chatMessage));
-            
-            return chatMessage;
-        }
-        #endregion
-
         #region Defaults
         public class Defaults
         {
@@ -147,20 +131,22 @@ namespace Essentials.Settings
         #endregion
 
         #region Render command usage
-        internal static IChatMessage RenderCommandUsage(string commandUsage, string hoverText = "Click to suggest the command.")
+        internal static IChatMessage RenderCommandUsage(string commandUsage, string hoverText = "Click to suggest the command.", ChatColor? color = null)
         {
+            color ??= ChatColor.Red;
+
             var chatMessage = IChatMessage.Simple("");
 
             #region prefix
             var prefix = IChatMessage.CreateNew();
-            prefix.Text = $"{ChatColor.Red}Usage: ";
+            prefix.Text = $"{color}Usage: ";
             chatMessage.AddExtra(prefix);
             #endregion
 
             #region usage
             var usage = IChatMessage.CreateNew();
             var commandSuggest = commandUsage.Contains(" ") ? $"{commandUsage.Split(" ").FirstOrDefault()} " : commandUsage;
-            usage.Text = $"{ChatColor.Red}{commandUsage}";
+            usage.Text = $"{color}{commandUsage}";
 
             var clickEvent = ITextComponent.CreateNew();
             clickEvent.Action = ETextAction.SuggestCommand;
@@ -174,6 +160,29 @@ namespace Essentials.Settings
 
             chatMessage.AddExtra(usage);
             #endregion
+
+            return chatMessage;
+        }
+        #endregion
+
+        #region RenderClickableCommand
+        internal static IChatMessage RenderClickableCommand(string name, string hoverText = "Click to suggest the command.", string suggestionPrefix = "", ChatColor? color = null)
+        {
+            color ??= ChatColor.Red;
+            var command = name.Contains(" ") ? string.Join(" ", name.Split(" ").Where(x => !x.StartsWith("<"))) + " " : name;
+            if (suggestionPrefix != "") command = $"{suggestionPrefix.Trim(' ')} {name}";
+            var chatMessage = IChatMessage.CreateNew();
+            chatMessage.Text = $"{color}{(suggestionPrefix != "" ? "" : (!name.StartsWith("/") ? "/" : ""))}{name}";
+
+            var clickEvent = ITextComponent.CreateNew();
+            clickEvent.Action = ETextAction.SuggestCommand;
+            clickEvent.Value = $"{(!command.StartsWith("/") ? "/" : "")}{command}";
+            chatMessage.ClickEvent = clickEvent;
+
+            var hoverEvent = ITextComponent.CreateNew();
+            hoverEvent.Action = ETextAction.ShowText;
+            hoverEvent.Value = $"{hoverText}";
+            chatMessage.HoverEvent = hoverEvent;
 
             return chatMessage;
         }
@@ -194,6 +203,21 @@ namespace Essentials.Settings
             {"/delwarp <name>", "Teleport to your specific warp."},
             {"/setwarp <name>", "Teleport to your specific warp."},
         };
+        #endregion
+
+        #region Newtonsoft.Json -> System.Text.Json
+        public static JsonSerializerOptions JsonSerializerOptions { 
+            get {
+                var jso = new JsonSerializerOptions();
+                jso.WriteIndented = true;
+                jso.PropertyNameCaseInsensitive = false;
+                jso.IgnoreNullValues = true;
+                //jso.ReadCommentHandling = JsonCommentHandling.Allow;
+                jso.ReadCommentHandling = JsonCommentHandling.Skip;
+                return jso;
+            } 
+        }
+
         #endregion
     }
 }

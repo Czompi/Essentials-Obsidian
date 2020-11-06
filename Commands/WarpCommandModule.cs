@@ -1,10 +1,9 @@
 ﻿using Essentials.Configs;
+using Essentials.Extensions;
 using Essentials.Settings;
-using Essentials.Utils;
 using Obsidian.API;
 using Obsidian.CommandFramework.Attributes;
 using Obsidian.CommandFramework.Entities;
-using Obsidian.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,15 +52,15 @@ namespace Essentials.Commands
         [CommandInfo("List all warps.")]
         public async Task WarpsAsync(ObsidianContext Context)
         {
-            var chatMessage = IChatMessage.Simple($"{ChatColor.Gray}Warps: ");
+            var chatMessage = IChatMessage.Simple($"{ChatColor.Reset}Warps: ");
             var warps = IChatMessage.Simple("");
             var warpList = Globals.Configs.Warps;
             int i = 0;
             foreach (var warpData in warpList)
             {
                 var warp = warpData.Value;
-                warps.AddExtra(Globals.RenderClickableCommand(warp.Name, "Click to navigate to warp", suggestionPrefix: "/warp"));
-                if (i + 1 <= warpList.Count) warps.AddExtra(IChatMessage.Simple($"{ChatColor.Gray}, "));
+                warps.AddExtra(Globals.RenderClickableCommand(warp.Name, "Click to navigate to warp", suggestionPrefix: "/warp", ChatColor.BrightGreen));
+                if (i + 1 < warpList.Count) warps.AddExtra(IChatMessage.Simple($"{ChatColor.Reset}, "));
             }
             chatMessage.AddExtra(warps);
             await Context.Player.SendMessageAsync(chatMessage);

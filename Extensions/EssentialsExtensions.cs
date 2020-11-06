@@ -1,6 +1,6 @@
 ﻿using Obsidian.API;
 
-namespace Essentials.Utils
+namespace Essentials.Extensions
 {
     public static class EssentialsExtensions
     {
@@ -11,15 +11,12 @@ namespace Essentials.Utils
         #endregion
 
         #region Position ToColoredString()
-        public static string ToString(this Obsidian.API.Position position) => $"X = {position.X}, Y = {position.Y}, Z = {position.Z}";
         public static string ToColoredString(this Obsidian.API.Position position) => $"§rX = §9{position.X}§r, Y = §9{position.Y}§r, Z = §9{position.Z}§r";
         public static string ToColoredString(this Obsidian.API.Position position, ChatColor color) => $"§rX = {color}{position.X}§r, Y = {color}{position.Y}§r, Z = {color}{position.Z}§r";
 
-        public static string ToString(this Configs.Position position) => $"X = {position.X}, Y = {position.Y}, Z = {position.Z}";
         public static string ToColoredString(this Configs.Position position) => $"§rX = §9{position.X}§r, Y = §9{position.Y}§r, Z = §9{position.Z}§r";
         public static string ToColoredString(this Configs.Position position, ChatColor color) => $"§rX = {color}{position.X}§r, Y = {color}{position.Y}§r, Z = {color}{position.Z}§r";
         #endregion
 
-        //public static Boolean HasPermissions(this IPlayer player, List<String> permissions) => HasPermission(player, permission);
     }
 }
