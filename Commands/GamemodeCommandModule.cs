@@ -45,7 +45,11 @@ namespace Essentials.Commands
                 if (gamemode != null)
                 {
                     await Context.Player.SetGamemodeAsync(gamemode.Value);
-                    chatMessage = IChatMessage.Simple($"{ChatColor.Reset}Your game mode set to {ChatColor.Red}{gamemode.Value}{ChatColor.Reset}.");
+                    chatMessage = IChatMessage.Simple(Globals.Language.TranslateMessage("gameMode", gamemode.Value.ToString()));//$"{ChatColor.Reset}Your game mode set to {ChatColor.Red}{gamemode.Value}{ChatColor.Reset}.");
+                }
+                else
+                {
+                    chatMessage = IChatMessage.Simple(Globals.Language.TranslateMessage("gameModeInvalid"));
                 }
             }
             else

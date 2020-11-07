@@ -34,9 +34,9 @@ namespace Essentials.Plugin
             Globals.FileWriter = IFileWriter;
             Logger.Log($"§7[Global]§r Global things §asuccessfully§r assigned.");
 
-            Logger.Log($"§7[Config]§r §9Detecting§r languages...");
+            Logger.Log($"§7[Language]§r §9Detecting§r language...");
             Globals.Language = new LanguageManager();
-            Logger.Log($"§7[Config]§r Config files are loaded §asuccessfully§r.");
+            //Logger.Log($"§7[Language]§r Language loaded §asuccessfully§r.");
 
             Logger.Log($"§7[Config]§r Config files are §9loading§r...");
             Globals.Configs = new ConfigManager();

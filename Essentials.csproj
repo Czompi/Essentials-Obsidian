@@ -26,18 +26,19 @@
     <EmbeddedResource Include="Resources\*.json" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- Skip unfinished config 'GlobalConfig'-->
+  <!--<ItemGroup>
     <Compile Remove="Configs\GlobalConfig.cs" />
-    <Compile Remove="Configs\Global\*.cs" />
+    <Compile Remove="Configs\GlobalModel\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Configs\GlobalConfig.cs" />
-    <None Include="Configs\Global\*.cs" />
-  </ItemGroup>
+    <None Include="Configs\GlobalModel\*.cs" />
+  </ItemGroup>-->
 
   <ItemGroup>
-    <PackageReference Include="Obsidian.API" Version="1.0.154">
+    <PackageReference Include="Obsidian.API" Version="1.0.165">
       <Private>false</Private>
     </PackageReference>
 	<PackageReference Include="System.Text.Json" Version="4.7.2">

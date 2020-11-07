@@ -3,6 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Essentials.Configs
 {
-    [JsonConverter(typeof(List<Home>))]
+    //[JsonConverter(typeof(List<Home>))]
     public class HomeConfig : List<Home> { }
 }

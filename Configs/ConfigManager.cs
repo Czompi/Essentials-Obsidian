@@ -117,22 +117,6 @@ namespace Essentials.Configs
             }
             catch (Exception ex)
             {
-                /*if (!Globals.FileReader.FileExists(location))
-                {
-                    Globals.Logger.LogWarning($"§7[Config]§r Config file §e{type.ToString()}.{Globals.FileReader.GetExtension(location).ToLower().Replace(".", "")}§r doesn't exists. Creating a new one.");
-                    Globals.FileWriter.WriteAllText(location, Globals.RenderColoredChatMessage(defaultConfig));
-                    try
-                    {
-                        config = Globals.FileReader.ReadAllText(location);
-                    }
-                    catch (Exception exInt)
-                    {
-                        Globals.Logger.LogWarning($"§7[Config]§r Config file §c{location.Replace(Globals.Files.WorkingDirectory, "")}§r can't be loaded.");
-#if DEBUG || SNAPSHOT
-                        Globals.Logger.LogWarning($"§7[Config]§r Error: §c{exInt}");
-#endif
-                    }
-                }*/
                 Globals.Logger.LogWarning($"§7[Config/{type.ToString()}]§r Config file §c{Globals.FileReader.GetFileName(location)}§r can't be loaded.");
 #if DEBUG || SNAPSHOT
                 Globals.Logger.LogDebug($"§7[Config/{type.ToString()}]§r Error: §c{ex}");

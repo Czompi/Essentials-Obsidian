@@ -5,6 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace Essentials
 {
-    [JsonConverter(typeof(Dictionary<string, string>))]
+    //[JsonConverter(typeof(Dictionary<string, string>))]
     public class Language : Dictionary<string, string> { }
 }
