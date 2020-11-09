@@ -20,11 +20,19 @@ namespace Essentials.Commands
 
             Process currentProcess = Process.GetCurrentProcess();
 
-            long usedMemory = currentProcess.PrivateMemorySize64;
+            //long maxMemory = currentProcess.VirtualMemorySize64;
+            //long totalMemory = currentProcess.PeakVirtualMemorySize64;
+            //long freeMemory = currentProcess.PeakVirtualMemorySize64-currentProcess.VirtualMemorySize64;
             long maxMemory = currentProcess.WorkingSet64;
+            long totalMemory = currentProcess.PeakWorkingSet64;
+            long freeMemory = totalMemory - maxMemory;
+            //long usedMemory = currentProcess.PrivateMemorySize64;
+            //long maxMemory = currentProcess.WorkingSet64;
 
-            chatMessage.AddExtra(IChatMessage.Simple($"Used RAM: §3{MemoryFormatter.Fancy(usedMemory)}\n"));
-            chatMessage.AddExtra(IChatMessage.Simple($"Max RAM: §3{MemoryFormatter.Fancy(maxMemory)}"));
+            chatMessage.AddExtra(IChatMessage.Simple($"{Globals.Language.TranslateMessage("gcfree", MemoryFormatter.Fancy(freeMemory, MemoryFormatter.EMemory.MB, false))}\n"));
+            chatMessage.AddExtra(IChatMessage.Simple($"{Globals.Language.TranslateMessage("gcmax", MemoryFormatter.Fancy(maxMemory, MemoryFormatter.EMemory.MB, false))}\n"));
+            chatMessage.AddExtra(IChatMessage.Simple($"{Globals.Language.TranslateMessage("gctotal", MemoryFormatter.Fancy(totalMemory, MemoryFormatter.EMemory.MB, false))}\n"));
+            chatMessage.AddExtra(IChatMessage.Simple($"{Globals.Language.TranslateMessage("tps", Context.Server.TPS)}"));
 
             await Context.Player.SendMessageAsync(chatMessage);
         }

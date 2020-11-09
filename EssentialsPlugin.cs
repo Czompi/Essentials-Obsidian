@@ -1,5 +1,6 @@
 ﻿using Essentials.Commands;
 using Essentials.Configs;
+using Essentials.Extensions;
 using Essentials.Settings;
 using Essentials.Settings.Lang;
 using Obsidian.API;
@@ -29,6 +30,7 @@ namespace Essentials.Plugin
             Logger.Log($"Essentials §9{Globals.VersionFull}§r loading...");
 
             Logger.Log($"§7[Global]§r Global things are §9loading§r...");
+            Globals.Server = server;
             Globals.Logger = Logger;
             Globals.FileReader = IFileReader;
             Globals.FileWriter = IFileWriter;
@@ -36,7 +38,7 @@ namespace Essentials.Plugin
 
             Logger.Log($"§7[Language]§r §9Detecting§r language...");
             Globals.Language = new LanguageManager();
-            //Logger.Log($"§7[Language]§r Language loaded §asuccessfully§r.");
+            Logger.Log($"§7[Language]§r Language loaded §asuccessfully§r.");
 
             Logger.Log($"§7[Config]§r Config files are §9loading§r...");
             Globals.Configs = new ConfigManager();
@@ -59,19 +61,20 @@ namespace Essentials.Plugin
             await Task.CompletedTask;
         }
 
+        /*public async Task OnIncomingChatMessage(IncomingChatMessageEventArgs e)
+        {
+            var player = e.Player;
+            var message = e.Message;
+            
+        }*/
+
         public async Task OnPlayerJoin(PlayerJoinEventArgs e)
         {
             var player = e.Player;
             var server = e.Server;
 
             await player.SendMessageAsync(
-                Globals.Configs.Motd
-                    .Replace("{PLAYER}", player.Username)
-                    .Replace("{WORLDTIME12}", $"{player.WorldLocation.Time}")
-                    .Replace("{WORLDTIME24}", $"{player.WorldLocation.Time}")
-                    .Replace("{ONLINE}", $"{server.Players.Count()}")
-                    .Replace("{ONLINELIST}", $"{string.Join("&6, &c", server.Players)}")
-            );
+                Globals.Configs.Motd.ReplaceKeywords(player));
         }
     }
 }

@@ -56,6 +56,7 @@ namespace Essentials.Settings
             {
                 get
                 {
+                    //var dir = Path.Combine(FileWriter.GetWorkingDirectory(), "Essentials");
                     var dir = Path.Combine("", "Essentials");
                     if (!FileWriter.DirectoryExists(dir)) FileWriter.CreateDirectory(dir);
                     return dir;
@@ -217,6 +218,8 @@ namespace Essentials.Settings
                 return jso;
             } 
         }
+
+        public static IServer Server { get; internal set; }
 
         #endregion
     }
