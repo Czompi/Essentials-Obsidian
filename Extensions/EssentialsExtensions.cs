@@ -28,7 +28,11 @@ namespace Essentials.Extensions
         public static string ReplaceKeywords(this string str, IPlayer user)
         {
             //string keyword = matchTokens[0];
-            return str;
+            var ret = str.Replace("{PLAYER}", user.Username);
+            ret = ret.Replace("{ONLINE}", $"{user.Server.Players.Count()}");
+            ret = ret.Replace("{WORLDTIME12}", $"{user.WorldLocation.Time.ToString()[0..1]}:{user.WorldLocation.Time.ToString()[2..3]}");
+            ret = ret.Replace("{WORLDTIME24}", $"{user.WorldLocation.Time.ToString()[0..1]}:{user.WorldLocation.Time.ToString()[2..3]}");
+            return ret;
         }
         public static string ReplaceKeyword(this string keyword, IPlayer user)
         {
