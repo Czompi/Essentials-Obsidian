@@ -1,0 +1,17 @@
+{
+  "addedToAccount": "\u00A7a{0} je dodato na va\u0161 nalog .",
+  "addedToOthersAccount": "\u00A7a{0} dodati {1}\u00A7a ra\u010Duna. Novi balans: {2}",
+  "adventure": "avantura",
+  "alertBroke": "Slomio je:",
+  "alertFormat": "\u00A73 [{0}] \u00A7r {1} \u00A76 {2} na: {3}",
+  "alertPlaced": "postavio:",
+  "alertUsed": "koristi:",
+  "antiBuildBreak": "\u00A74Nije dozvoljeno rusiti \u00A7c {0} \u00A74blokove.",
+  "antiBuildCraft": "\u00A74You nije dozvoljeno da pravis\u00A7c {0}\u00A74.",
+  "antiBuildDrop": "\u00A74Nemate dozvolu da bacate\u00A7c {0}\u00A74.",
+  "antiBuildInteract": "\u00A74Nemate dozvolu da bacate\u00A7c {0}\u00A74.",
+  "antiBuildPlace": "\u00A74Nemate dozvolu da bacate\u00A7c {0}\u00A74.",
+  "antiBuildUse": "\u00A74Nemate dozvolu da bacate\u00A7c {0}\u00A74.",
+  "autoAfkKickReason": "Kickovan si jer si AFK vise od {0} minuta.",
+  "backUsageMsg": "\u00A77Vracanje na prethodnu lokaciju."
+}

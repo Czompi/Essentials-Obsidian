@@ -1,35 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Configurations>Debug;Release;Snapshot</Configurations>
     <Version>0.0.1</Version>
     <Authors>Czompi</Authors>
     <Company>Czompi</Company>
     <Product>Essentials</Product>
-
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <!--<Move SourceFiles="$(OutputPath)$(AssemblyName).pdb" DestinationFiles="$(OutputPath)..\..\$(AssemblyName)-$(Configuration.ToLower()).pdb" />-->
     <Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
+    <Copy SourceFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" DestinationFiles="$(OutputPath)..\..\..\..\..\GitHub.Naamloos\Obsidian\Obsidian\$(OutDir)\Server-0\plugins\$(OutDir.Split(Path.DirectorySeparatorChar)[2])\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
   </Target>
+
   <ItemGroup>
-    <Compile Remove="Commands\EssentialsCommandModule.cs" />
-    <Compile Remove="Commands\HomeCommandModule.cs" />
+    <None Remove="Resources\Langs\*.json" />
+    <None Remove="Resources\*.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Commands\EssentialsCommandModule.cs" />
-    <None Include="Commands\HomeCommandModule.cs" />
+    <EmbeddedResource Include="Resources\Langs\*.json" />
+    <EmbeddedResource Include="Resources\*.json" />
+  </ItemGroup>
+
+  <!-- Skip unfinished config 'GlobalConfig'-->
+  <!--<ItemGroup>
+    <Compile Remove="Configs\GlobalConfig.cs" />
+    <Compile Remove="Configs\GlobalModel\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
-      <Private>false</Private>
-    </PackageReference>
-    <PackageReference Include="Obsidian.API" Version="1.0.105">
-      <Private>false</Private>
-    </PackageReference>
+    <None Include="Configs\GlobalConfig.cs" />
+    <None Include="Configs\GlobalModel\*.cs" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+	<PackageReference Include="Obsidian.API" Version="1.0.0-CI-20201111-163604">
+    <Private>false</Private>
+  </PackageReference>
+	<PackageReference Include="System.Text.Json" Version="5.0.0">
+	  <Private>false</Private>
+	</PackageReference>
   </ItemGroup>
 </Project>

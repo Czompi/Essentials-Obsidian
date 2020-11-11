@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Essentials": {
+      "commandName": "Project"
+    },
+    "Debug": {
+      "commandName": "Executable",
+      "executablePath": "D:\\GitHub.Naamloos\\Obsidian\\Obsidian\\bin\\Debug\\net5.0\\Obsidian.exe",
+      "workingDirectory": "D:\\GitHub.Naamloos\\Obsidian\\Obsidian\\bin\\Debug\\net5.0\\"
+    }
+  }
+}
