@@ -5,8 +5,8 @@
     },
     "Debug": {
       "commandName": "Executable",
-      "executablePath": "D:\\GitHub.Naamloos\\Obsidian\\Obsidian\\bin\\Debug\\netcoreapp3.1\\Obsidian.exe",
-      "workingDirectory": "D:\\GitHub.Naamloos\\Obsidian\\Obsidian\\bin\\Debug\\netcoreapp3.1\\"
+      "executablePath": "D:\\GitHub.Naamloos\\Obsidian\\Obsidian\\bin\\Debug\\net5.0\\Obsidian.exe",
+      "workingDirectory": "D:\\GitHub.Naamloos\\Obsidian\\Obsidian\\bin\\Debug\\net5.0\\"
     }
   }
 }

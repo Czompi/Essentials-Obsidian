@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Configurations>Debug;Release;Snapshot</Configurations>
     <Version>0.0.1</Version>
     <Authors>Czompi</Authors>
     <Company>Czompi</Company>
     <Product>Essentials</Product>
-
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <!--<Move SourceFiles="$(OutputPath)$(AssemblyName).pdb" DestinationFiles="$(OutputPath)..\..\$(AssemblyName)-$(Configuration.ToLower()).pdb" />-->
     <Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
-    <Copy SourceFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" DestinationFiles="$(OutputPath)..\..\..\..\..\GitHub.Naamloos\Obsidian\Obsidian\bin\Debug\netcoreapp3.1\Server-0\plugins\netcoreapp3.1\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
+    <Copy SourceFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" DestinationFiles="$(OutputPath)..\..\..\..\..\GitHub.Naamloos\Obsidian\Obsidian\$(OutDir)\Server-0\plugins\$(OutDir.Split(Path.DirectorySeparatorChar)[2])\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
   </Target>
 
   <ItemGroup>
@@ -38,10 +38,10 @@
   </ItemGroup>-->
 
   <ItemGroup>
-    <PackageReference Include="Obsidian.API" Version="1.0.173">
-      <Private>false</Private>
-    </PackageReference>
-	<PackageReference Include="System.Text.Json" Version="4.7.2">
+	<PackageReference Include="Obsidian.API" Version="1.0.0-CI-20201111-124350">
+    <Private>false</Private>
+  </PackageReference>
+	<PackageReference Include="System.Text.Json" Version="5.0.0">
 	  <Private>false</Private>
 	</PackageReference>
   </ItemGroup>
