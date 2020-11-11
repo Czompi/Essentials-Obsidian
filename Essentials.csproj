@@ -38,7 +38,7 @@
   </ItemGroup>-->
 
   <ItemGroup>
-	<PackageReference Include="Obsidian.API" Version="1.0.0-CI-20201111-124350">
+	<PackageReference Include="Obsidian.API" Version="1.0.0-CI-20201111-163604">
     <Private>false</Private>
   </PackageReference>
 	<PackageReference Include="System.Text.Json" Version="5.0.0">
