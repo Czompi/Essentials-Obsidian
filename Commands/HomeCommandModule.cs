@@ -101,7 +101,7 @@ namespace Essentials.Commands
                     var home = home_.FirstOrDefault();
                     try
                     {
-                        await Context.Player.TeleportAsync(new Obsidian.API.Position(home.Position.X, home.Position.Y, home.Position.Z));
+                        await Context.Player.TeleportAsync(home.Position.ToObsidianPosition());
 
                         chatMessage.AddExtra(IChatMessage.Simple($"Successfully teleported to {ChatColor.BrightGreen}{home.Name}{ChatColor.Reset}."));
                     }

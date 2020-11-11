@@ -29,7 +29,7 @@ namespace Essentials.Commands
                 var warp = Globals.Configs.Warps[args[0]];
                 try
                 {
-                    await Context.Player.TeleportAsync(new Obsidian.API.Position(warp.Position.X, warp.Position.Y, warp.Position.Z));
+                    await Context.Player.TeleportAsync(warp.Position.ToObsidianPosition());
 
                     chatMessage.AddExtra(IChatMessage.Simple($"Successfully warped to {ChatColor.BrightGreen}{warp.Name}{ChatColor.Reset}."));
                 }
@@ -96,9 +96,9 @@ namespace Essentials.Commands
                     };
 
                     if (Globals.Configs.AddWarp(warp, cfg, Context.Player))
-                        chatMessage.AddExtra(IChatMessage.Simple($"Successfully created §a{cfg.Name}§r warp on location {cfg.Position.ToColoredString(ChatColor.BrightGreen)}{ChatColor.Reset}."));
+                        chatMessage.AddExtra(IChatMessage.Simple($"Successfully created {ChatColor.BrightGreen}{cfg.Name}{ChatColor.Reset} warp on location {cfg.Position.ToColoredString(ChatColor.BrightGreen)}{ChatColor.Reset}."));
                     else
-                        chatMessage.AddExtra(IChatMessage.Simple($"Cannot created §c{warp}§r warp on location {cfg.Position.ToColoredString(ChatColor.Red)}{ChatColor.Reset}."));
+                        chatMessage.AddExtra(IChatMessage.Simple($"Cannot created {ChatColor.Red}{warp}{ChatColor.Reset} warp on location {cfg.Position.ToColoredString(ChatColor.Red)}{ChatColor.Reset}."));
                 }
                 catch (Exception ex)
                 {

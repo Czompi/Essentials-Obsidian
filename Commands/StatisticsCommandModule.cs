@@ -34,6 +34,9 @@ namespace Essentials.Commands
             chatMessage.AddExtra(IChatMessage.Simple($"{Globals.Language.TranslateMessage("gcmax", MemoryFormatter.Fancy(maxMemory, MemoryFormatter.EMemory.MB, false))}\n"));
             chatMessage.AddExtra(IChatMessage.Simple($"{Globals.Language.TranslateMessage("gctotal", MemoryFormatter.Fancy(totalMemory, MemoryFormatter.EMemory.MB, false))}\n"));
             chatMessage.AddExtra(IChatMessage.Simple($"{Globals.Language.TranslateMessage("tps", Context.Server.TPS)}"));
+#if DEBUG
+            chatMessage.AddExtra(IChatMessage.Simple($"{ChatColor.DarkGreen}//There are a lot of things here. :o"));
+#endif
 
             await Context.Player.SendMessageAsync(chatMessage);
         }

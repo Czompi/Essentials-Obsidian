@@ -17,11 +17,11 @@ namespace Essentials.Extensions
         #endregion
 
         #region Position ToColoredString()
-        public static string ToColoredString(this Obsidian.API.Position position) => $"§rX = §9{position.X}§r, Y = §9{position.Y}§r, Z = §9{position.Z}§r";
-        public static string ToColoredString(this Obsidian.API.Position position, ChatColor color) => $"§rX = {color}{position.X}§r, Y = {color}{position.Y}§r, Z = {color}{position.Z}§r";
+        public static string ToColoredString(this Obsidian.API.Position position) => $"{ChatColor.Reset}X = §9{position.X}{ChatColor.Reset}, Y = §9{position.Y}{ChatColor.Reset}, Z = §9{position.Z}{ChatColor.Reset}";
+        public static string ToColoredString(this Obsidian.API.Position position, ChatColor color) => $"{ChatColor.Reset}X = {color}{position.X}{ChatColor.Reset}, Y = {color}{position.Y}{ChatColor.Reset}, Z = {color}{position.Z}{ChatColor.Reset}";
 
-        public static string ToColoredString(this Configs.Position position) => $"§rX = §9{position.X}§r, Y = §9{position.Y}§r, Z = §9{position.Z}§r";
-        public static string ToColoredString(this Configs.Position position, ChatColor color) => $"§rX = {color}{position.X}§r, Y = {color}{position.Y}§r, Z = {color}{position.Z}§r";
+        public static string ToColoredString(this Configs.Position position) => $"{ChatColor.Reset}X = §9{position.X}{ChatColor.Reset}, Y = §9{position.Y}{ChatColor.Reset}, Z = §9{position.Z}{ChatColor.Reset}";
+        public static string ToColoredString(this Configs.Position position, ChatColor color) => $"{ChatColor.Reset}X = {color}{position.X}{ChatColor.Reset}, Y = {color}{position.Y}{ChatColor.Reset}, Z = {color}{position.Z}{ChatColor.Reset}";
         #endregion
 
         #region replace keywords

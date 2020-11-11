@@ -15,7 +15,7 @@ namespace Essentials.Commands
          #region /essentials <reload|debug|commands>
         [Command("essentials", "ess")]
         [CommandInfo("Essentials available commands.", "/essentials <reload|debug|commands>")]
-        public async Task EssentialsAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/essentials <reload/debug/commands>"));
+        public async Task EssentialsAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/essentials <reload|debug|commands>"));
 
         [CommandOverload]
         public async Task EssentialsAsync(ObsidianContext Context, [Remaining] string args_)
@@ -50,7 +50,11 @@ namespace Essentials.Commands
 
                 #region debug
                 case "debug":
-                    // What the h*ll does this arg does?!
+                    var msg = $"{ChatColor.Red}Welcome to the {ChatColor.Obfuscated}debug{ChatColor.Reset}{ChatColor.Red}!";
+#if DEBUG
+                    msg += $"{ChatColor.DarkGreen} // You're looking soo pretty today. :3";
+#endif
+                    await Context.Player.SendMessageAsync(msg);
                     break;
                 #endregion
 
@@ -60,6 +64,9 @@ namespace Essentials.Commands
                     chatMessage = IChatMessage.Simple("");
                     var message = IChatMessage.CreateNew();
                     message.Text = $"{ChatColor.Gray}Essentials {ChatColor.Red}{Globals.VersionFull}{ChatColor.Gray} successfully reloaded.";
+//#if DEBUG
+                    message.Text += $" {ChatColor.DarkGreen}// This command does not actually do anything right now, beside telling you that it does not do anything. ";
+//#endif
 
                     chatMessage.AddExtra(message);
                     break;
@@ -67,7 +74,7 @@ namespace Essentials.Commands
 
                 #region Not valid args[0]
                 default:
-                    chatMessage = Globals.RenderCommandUsage("/essentials <reload/debug/commands>");
+                    chatMessage = Globals.RenderCommandUsage("/essentials <reload|debug|commands>");
                     break;
                 #endregion
             }

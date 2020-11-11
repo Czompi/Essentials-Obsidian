@@ -1,4 +1,5 @@
 ﻿using Essentials.Plugin;
+using Obsidian.API;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -54,25 +55,25 @@ namespace Essentials.Settings.Lang
                     {
                         var lang_sel = lang_sel_.FirstOrDefault();
                         res = LoadLanguageFromAssembly(lang_sel);
-                        Globals.Logger.Log($"§7[Language/{Code}]§r §a{EnglishName}§r language loaded.");
+                        Globals.Logger.Log($"§7[Language/{Code}]{ChatColor.Reset} {ChatColor.BrightGreen}{EnglishName}{ChatColor.Reset} language loaded.");
                     }
                     catch (Exception exSel)
                     {
-                        Globals.Logger.LogWarning($"§7[Language/{Code}]§r Cannot load §e{EnglishName}§r language. Falling back to default...");
+                        Globals.Logger.LogWarning($"§7[Language/{Code}]{ChatColor.Reset} Cannot load §e{EnglishName}{ChatColor.Reset} language. Falling back to default...");
 #if DEBUG || SNAPSHOT
-                        Globals.Logger.LogError($"§7[Language/{Code}]§r §c{exSel}!");
+                        Globals.Logger.LogError($"§7[Language/{Code}]{ChatColor.Reset} {ChatColor.Red}{exSel}!");
 #endif
                         try
                         {
                             var lang_def = lang_def_.FirstOrDefault();
                             res = LoadLanguageFromAssembly(lang_def);
-                            Globals.Logger.Log($"§7[Language/{DefaultLangInfo.EnglishName}]§r §a{DefaultLangInfo.EnglishName}§r language loaded.");
+                            Globals.Logger.Log($"§7[Language/{DefaultLangInfo.EnglishName}]{ChatColor.Reset} {ChatColor.BrightGreen}{DefaultLangInfo.EnglishName}{ChatColor.Reset} language loaded.");
                         }
                         catch (Exception exDef)
                         {
-                            Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.EnglishName}]§r Cannot load §e{DefaultLangInfo.EnglishName}§r language!");
+                            Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.EnglishName}]{ChatColor.Reset} Cannot load §e{DefaultLangInfo.EnglishName}{ChatColor.Reset} language!");
 #if DEBUG || SNAPSHOT
-                            Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]§r §c{exDef}!");
+                            Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]{ChatColor.Reset} {ChatColor.Red}{exDef}!");
 #endif
                         }
                     }
@@ -83,19 +84,19 @@ namespace Essentials.Settings.Lang
                     {
                         var lang_def = lang_def_.FirstOrDefault();
                         res = LoadLanguageFromAssembly(lang_def);
-                        Globals.Logger.Log($"§7[Language/{DefaultLangInfo.EnglishName}]§r §a{DefaultLangInfo.EnglishName}§r language loaded.");
+                        Globals.Logger.Log($"§7[Language/{DefaultLangInfo.EnglishName}]{ChatColor.Reset} {ChatColor.BrightGreen}{DefaultLangInfo.EnglishName}{ChatColor.Reset} language loaded.");
                     }
                     catch (Exception exDef)
                     {
-                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.EnglishName}]§r Cannot load §e{DefaultLangInfo.EnglishName}§r language!");
+                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.EnglishName}]{ChatColor.Reset} Cannot load §e{DefaultLangInfo.EnglishName}{ChatColor.Reset} language!");
 #if DEBUG || SNAPSHOT
-                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]§r §c{exDef}!");
+                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]{ChatColor.Reset} {ChatColor.Red}{exDef}!");
 #endif
                     }
                 }
                 else
                 {
-                    Globals.Logger.LogError($"§7[Language/{Code}]§r Cannot load §c{EnglishName}§r language!");
+                    Globals.Logger.LogError($"§7[Language/{Code}]{ChatColor.Reset} Cannot load {ChatColor.Red}{EnglishName}{ChatColor.Reset} language!");
                     throw new MissingLanguageException(EnglishName);
                 }
             }
@@ -104,24 +105,24 @@ namespace Essentials.Settings.Lang
                 try
                 {
                     res = JsonSerializer.Deserialize<Language>(Globals.Files.LanguageFile(code));
-                    Globals.Logger.Log($"§7[Language/{Code}]§r §a{EnglishName}§r language loaded.");
+                    Globals.Logger.Log($"§7[Language/{Code}]{ChatColor.Reset} {ChatColor.BrightGreen}{EnglishName}{ChatColor.Reset} language loaded.");
                 }
                 catch (Exception exSel)
                 {
 #if DEBUG || SNAPSHOT
-                    Globals.Logger.LogError($"§7[Language/{Code}]§r §c{exSel}!");
+                    Globals.Logger.LogError($"§7[Language/{Code}]{ChatColor.Reset} {ChatColor.Red}{exSel}!");
 #endif
                     try
                     {
                         var lang_def = lang_def_.FirstOrDefault();
                         res = LoadLanguageFromAssembly(lang_def);
-                        Globals.Logger.Log($"§7[Language/{DefaultLangInfo.Code}]§r §a{DefaultLangInfo.EnglishName}§r language loaded.");
+                        Globals.Logger.Log($"§7[Language/{DefaultLangInfo.Code}]{ChatColor.Reset} {ChatColor.BrightGreen}{DefaultLangInfo.EnglishName}{ChatColor.Reset} language loaded.");
                     }
                     catch (Exception exDef)
                     {
-                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]§r Cannot load §e{DefaultLangInfo.EnglishName}§r language!");
+                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]{ChatColor.Reset} Cannot load §e{DefaultLangInfo.EnglishName}{ChatColor.Reset} language!");
 #if DEBUG || SNAPSHOT
-                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]§r §c{exDef}!");
+                        Globals.Logger.LogError($"§7[Language/{DefaultLangInfo.Code}]{ChatColor.Reset} {ChatColor.Red}{exDef}!");
 #endif
                     }
                 }

@@ -27,37 +27,40 @@ namespace Essentials.Plugin
         public async Task OnLoad(IServer server)
         {
             Globals.PluginInfo = Info;
-            Logger.Log($"Essentials §9{Globals.VersionFull}§r loading...");
+            Logger.Log($"Essentials §9{Globals.VersionFull}{ChatColor.Reset} loading...");
 
-            Logger.Log($"§7[Global]§r Global things are §9loading§r...");
+            Logger.Log($"§7[Global]{ChatColor.Reset} Global things are §9loading{ChatColor.Reset}...");
             Globals.Server = server;
             Globals.Logger = Logger;
             Globals.FileReader = IFileReader;
             Globals.FileWriter = IFileWriter;
-            Logger.Log($"§7[Global]§r Global things §asuccessfully§r assigned.");
+            Logger.Log($"§7[Global]{ChatColor.Reset} Global things {ChatColor.BrightGreen}successfully{ChatColor.Reset} assigned.");
 
-            Logger.Log($"§7[Language]§r §9Detecting§r language...");
+            Logger.Log($"§7[Language]{ChatColor.Reset} §9Detecting{ChatColor.Reset} language...");
             Globals.Language = new LanguageManager();
-            Logger.Log($"§7[Language]§r Language loaded §asuccessfully§r.");
+            Logger.Log($"§7[Language]{ChatColor.Reset} Language loaded {ChatColor.BrightGreen}successfully{ChatColor.Reset}.");
 
-            Logger.Log($"§7[Config]§r Config files are §9loading§r...");
+            Logger.Log($"§7[Config]{ChatColor.Reset} Config files are §9loading{ChatColor.Reset}...");
             Globals.Configs = new ConfigManager();
-            Logger.Log($"§7[Config]§r Config files are loaded §asuccessfully§r.");
+            Logger.Log($"§7[Config]{ChatColor.Reset} Config files are loaded {ChatColor.BrightGreen}successfully{ChatColor.Reset}.");
 
-            Logger.Log($"§7[Commands]§r Registering §9commands§r...");
+            Logger.Log($"§7[Commands]{ChatColor.Reset} Registering §9commands{ChatColor.Reset}...");
             server.RegisterCommandClass<EssentialsCommandModule>();
-            Logger.Log($"§7[Commands]§r Command module §aEssentialsCommandModule§r registered.");
+            Logger.Log($"§7[Commands]{ChatColor.Reset} Command module {ChatColor.BrightGreen}EssentialsCommandModule{ChatColor.Reset} registered.");
             server.RegisterCommandClass<GamemodeCommandModule>();
-            Logger.Log($"§7[Commands]§r Command module §aGamemodeCommandModule§r registered.");
+            Logger.Log($"§7[Commands]{ChatColor.Reset} Command module {ChatColor.BrightGreen}GamemodeCommandModule{ChatColor.Reset} registered.");
             server.RegisterCommandClass<StatisticsCommandModule>();
-            Logger.Log($"§7[Commands]§r Command module §aStatisticsCommandModule§r registered.");
+            Logger.Log($"§7[Commands]{ChatColor.Reset} Command module {ChatColor.BrightGreen}StatisticsCommandModule{ChatColor.Reset} registered.");
             server.RegisterCommandClass<HomeCommandModule>();
-            Logger.Log($"§7[Commands]§r Command module §aHomeCommandModule§r registered.");
+            Logger.Log($"§7[Commands]{ChatColor.Reset} Command module {ChatColor.BrightGreen}HomeCommandModule{ChatColor.Reset} registered.");
             server.RegisterCommandClass<WarpCommandModule>();
-            Logger.Log($"§7[Commands]§r Command module §aWarpCommandModule§r registered.");
-            Logger.Log($"§7[Commands]§r Commands §asuccessfully§r registered...");
+            Logger.Log($"§7[Commands]{ChatColor.Reset} Command module {ChatColor.BrightGreen}WarpCommandModule{ChatColor.Reset} registered.");
+            Logger.Log($"§7[Commands]{ChatColor.Reset} Commands {ChatColor.BrightGreen}successfully{ChatColor.Reset} registered...");
 
-            Logger.Log($"Essentials §a{Globals.VersionFull}§r loaded!");
+            Logger.Log($"Essentials {ChatColor.BrightGreen}{Globals.VersionFull}{ChatColor.Reset} loaded!");
+#if DEBUG
+            Logger.Log($"{ChatColor.DarkGreen}// Lot of things are loaded here...");
+#endif
             await Task.CompletedTask;
         }
 
@@ -65,7 +68,8 @@ namespace Essentials.Plugin
         {
             var player = e.Player;
             var message = e.Message;
-            
+            await e.Server.BroadcastAsync($"<{player.Username}> {message}");
+            e.Handled = true;
         }*/
 
         public async Task OnPlayerJoin(PlayerJoinEventArgs e)
