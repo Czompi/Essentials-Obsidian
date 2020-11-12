@@ -162,6 +162,6 @@ Not all of these commands will be implemented.
 - [ ] First time login message will be implemented.
 - [x] Login information message is implemented (`motd.txt`).
 - [ ] I'll probably implement server MOTD change in the future.
-- [ ] **Login/Logout message override wont be implemented, because this function is integrated into [Obsidian](https://github.com/Naamloos/Obsidian).**
+- [ ] **Login/Logout message override wont be implemented, because this function is integrated into [Obsidian](https://github.com/ObsidianServer/Obsidian).**
 
-This project is a remake of [Essentials](https://github.com/EssentialsX/Essentials) project in Obisdian.API for [Obsidian](https://github.com/Naamloos/Obsidian) servers.
+This project is a remake of [Essentials](https://github.com/EssentialsX/Essentials) project in Obisdian.API for [Obsidian](https://github.com/ObsidianServer/Obsidian) servers.
