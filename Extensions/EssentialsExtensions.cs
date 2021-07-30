@@ -12,13 +12,13 @@ namespace Essentials.Extensions
     {
 
         #region Essentials and Obsidian position conversion
-        public static Configs.Position ToEssentialsPosition(this Obsidian.API.Position position) => new Configs.Position { X = position.X, Y = position.Y, Z = position.Z };
-        public static Obsidian.API.Position ToObsidianPosition(this Configs.Position position) => new Obsidian.API.Position(position.X, position.Y, position.Z);
+        public static Configs.Position ToEssentialsPosition(this VectorF position) => new() { X = position.X, Y = position.Y, Z = position.Z };
+        public static VectorF ToObsidianPosition(this Configs.Position position) => new (position.X, position.Y, position.Z);
         #endregion
 
         #region Position ToColoredString()
-        public static string ToColoredString(this Obsidian.API.Position position) => $"{ChatColor.Reset}X = §9{position.X}{ChatColor.Reset}, Y = §9{position.Y}{ChatColor.Reset}, Z = §9{position.Z}{ChatColor.Reset}";
-        public static string ToColoredString(this Obsidian.API.Position position, ChatColor color) => $"{ChatColor.Reset}X = {color}{position.X}{ChatColor.Reset}, Y = {color}{position.Y}{ChatColor.Reset}, Z = {color}{position.Z}{ChatColor.Reset}";
+        public static string ToColoredString(this VectorF position) => $"{ChatColor.Reset}X = §9{position.X}{ChatColor.Reset}, Y = §9{position.Y}{ChatColor.Reset}, Z = §9{position.Z}{ChatColor.Reset}";
+        public static string ToColoredString(this VectorF position, ChatColor color) => $"{ChatColor.Reset}X = {color}{position.X}{ChatColor.Reset}, Y = {color}{position.Y}{ChatColor.Reset}, Z = {color}{position.Z}{ChatColor.Reset}";
 
         public static string ToColoredString(this Configs.Position position) => $"{ChatColor.Reset}X = §9{position.X}{ChatColor.Reset}, Y = §9{position.Y}{ChatColor.Reset}, Z = §9{position.Z}{ChatColor.Reset}";
         public static string ToColoredString(this Configs.Position position, ChatColor color) => $"{ChatColor.Reset}X = {color}{position.X}{ChatColor.Reset}, Y = {color}{position.Y}{ChatColor.Reset}, Z = {color}{position.Z}{ChatColor.Reset}";

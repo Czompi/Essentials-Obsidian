@@ -2,9 +2,6 @@
 using Essentials.Extensions;
 using Essentials.Settings;
 using Obsidian.API;
-using Obsidian.CommandFramework;
-using Obsidian.CommandFramework.Attributes;
-using Obsidian.CommandFramework.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Essentials.Commands
 {
-    public class WarpCommandModule : BaseCommandClass
+    public class WarpCommandModule
     {
         #region /warp <name>
         [Command("warp")]
         [CommandInfo("Switch gamemode.", "/warp <name>")]
-        public async Task WarpAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/warp <name>"));
+        public async Task WarpAsync(CommandContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/warp <name>"));
 
         [CommandOverload]
-        public async Task WarpAsync(ObsidianContext Context, [Remaining] string args_)
+        public async Task WarpAsync(CommandContext Context, [Remaining] string args_)
         {
             var chatMessage = IChatMessage.Simple("");
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
@@ -51,7 +48,7 @@ namespace Essentials.Commands
         #region /warps
         [Command("warps")]
         [CommandInfo("List all warps.")]
-        public async Task WarpsAsync(ObsidianContext Context)
+        public async Task WarpsAsync(CommandContext Context)
         {
             var chatMessage = IChatMessage.Simple($"{ChatColor.Reset}Warps: ");
             var warps = IChatMessage.Simple("");
@@ -68,16 +65,16 @@ namespace Essentials.Commands
         }
 
         [CommandOverload]
-        public async Task WarpsAsync(ObsidianContext Context, [Remaining] string args_) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/warps"));
+        public async Task WarpsAsync(CommandContext Context, [Remaining] string args_) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/warps"));
         #endregion
 
         #region /setwarp <name>
         [Command("setwarp")]
         [CommandInfo("Switch gamemode.", "/setwarp <name>")]
-        public async Task SetWarpAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/setwarp <name>"));
+        public async Task SetWarpAsync(CommandContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/setwarp <name>"));
 
         [CommandOverload]
-        public async Task SetWarpAsync(ObsidianContext Context, [Remaining] string args_)
+        public async Task SetWarpAsync(CommandContext Context, [Remaining] string args_)
         {
             var chatMessage = IChatMessage.Simple("");
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
@@ -92,7 +89,7 @@ namespace Essentials.Commands
                         LastOwner = Context.Player.Uuid,
                         Name = warp,
                         World = Context.Player.WorldLocation.Name,
-                        Position = Context.Player.Location.ToEssentialsPosition()
+                        Position = Context.Player.Position.ToEssentialsPosition()
                     };
 
                     if (Globals.Configs.AddWarp(warp, cfg, Context.Player))

@@ -2,9 +2,6 @@
 using Essentials.Extensions;
 using Essentials.Settings;
 using Obsidian.API;
-using Obsidian.CommandFramework;
-using Obsidian.CommandFramework.Attributes;
-using Obsidian.CommandFramework.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Essentials.Commands
 {
-    public class HomeCommandModule : BaseCommandClass
+    public class HomeCommandModule
     {
         #region /home <name>
         [Command("home")]
         [CommandInfo("Switch gamemode.", "/home [<name>]")]
-        public async Task HomeAsync(ObsidianContext Context) => await HomeAsync(Context, "home");
+        public async Task HomeAsync(CommandContext Context) => await HomeAsync(Context, "home");
 
         [CommandOverload]
-        public async Task HomeAsync(ObsidianContext Context, [Remaining] string args_)
+        public async Task HomeAsync(CommandContext Context, [Remaining] string args_)
         {
             var chatMessage = IChatMessage.Simple("");
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
@@ -60,7 +57,7 @@ namespace Essentials.Commands
         #region /homes
         [Command("homes")]
         [CommandInfo("List all homes.")]
-        public async Task HomesAsync(ObsidianContext Context)
+        public async Task HomesAsync(CommandContext Context)
         {
             var chatMessage = IChatMessage.Simple($"{ChatColor.Gray}Your homes: ");
             if (Globals.Configs.PlayerHomes.ContainsKey(Context.Player.Uuid))
@@ -79,16 +76,16 @@ namespace Essentials.Commands
         }
 
         [CommandOverload]
-        public async Task HomesAsync(ObsidianContext Context, [Remaining] string args_) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/homes"));
+        public async Task HomesAsync(CommandContext Context, [Remaining] string args_) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/homes"));
         #endregion
 
         #region /sethome [<name>]
         [Command("sethome")]
         [CommandInfo("Switch gamemode.", "/sethome [<name>]")]
-        public async Task SetHomeAsync(ObsidianContext Context) => await SetHomeAsync(Context, "home");
+        public async Task SetHomeAsync(CommandContext Context) => await SetHomeAsync(Context, "home");
 
         [CommandOverload]
-        public async Task SetHomeAsync(ObsidianContext Context, [Remaining] string args_)
+        public async Task SetHomeAsync(CommandContext Context, [Remaining] string args_)
         {
             var chatMessage = IChatMessage.Simple("");
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };

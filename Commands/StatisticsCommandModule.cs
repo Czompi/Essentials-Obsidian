@@ -1,21 +1,18 @@
 ﻿using Essentials.Settings;
 using Obsidian.API;
-using Obsidian.CommandFramework;
-using Obsidian.CommandFramework.Attributes;
-using Obsidian.CommandFramework.Entities;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Essentials.Commands
 {
-    public class StatisticsCommandModule : BaseCommandClass
+    public class StatisticsCommandModule
     {
 
         #region /gc
         [Command("gc", "tps")]
         [CommandInfo("Stats.", "/gc")]
-        public async Task GcAsync(ObsidianContext Context)
+        public async Task GcAsync(CommandContext Context)
         {
             var chatMessage = IChatMessage.Simple("");
 
@@ -43,7 +40,7 @@ namespace Essentials.Commands
         
 
         [CommandOverload]
-        public async Task GcAsync(ObsidianContext Context, [Remaining] string args_) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/gc"));
+        public async Task GcAsync(CommandContext Context, [Remaining] string args_) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/gc"));
         #endregion
 
     }

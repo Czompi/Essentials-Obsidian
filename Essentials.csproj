@@ -1,33 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <Configurations>Debug;Release;Snapshot</Configurations>
-    <Version>0.0.1</Version>
-    <Authors>Czompi</Authors>
-    <Company>Czompi</Company>
-    <Product>Essentials</Product>
-    <LangVersion>9.0</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Configurations>Debug;Release;Snapshot</Configurations>
+		<Version>0.0.1</Version>
+		<Authors>Czompi</Authors>
+		<Company>Czompi</Company>
+		<Product>Essentials</Product>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <!--<Move SourceFiles="$(OutputPath)$(AssemblyName).pdb" DestinationFiles="$(OutputPath)..\..\$(AssemblyName)-$(Configuration.ToLower()).pdb" />-->
-    <Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
-    <Copy SourceFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" DestinationFiles="$(OutputPath)..\..\..\..\..\GitHub.Naamloos\Obsidian\Obsidian\$(OutDir)\Server-0\plugins\$(OutDir.Split(Path.DirectorySeparatorChar)[2])\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<!--<Move SourceFiles="$(OutputPath)$(AssemblyName).pdb" DestinationFiles="$(OutputPath)..\..\$(AssemblyName)-$(Configuration.ToLower()).pdb" />-->
+		<Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
+		<Copy SourceFiles="$(OutputPath)..\..\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" DestinationFiles="$(OutputPath)..\..\..\..\..\GitHub.Naamloos\Obsidian\Obsidian\$(OutDir)\Server-0\plugins\$(OutDir.Split(Path.DirectorySeparatorChar)[2])\$(AssemblyName.ToLower())-$(Version)-$(Configuration.ToLower()).dll" />
+	</Target>
 
-  <ItemGroup>
-    <None Remove="Resources\Langs\*.json" />
-    <None Remove="Resources\*.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Resources\Langs\*.json" />
+		<None Remove="Resources\*.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Langs\*.json" />
-    <EmbeddedResource Include="Resources\*.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Langs\*.json" />
+		<EmbeddedResource Include="Resources\*.json" />
+	</ItemGroup>
 
-  <!-- Skip unfinished config 'GlobalConfig'-->
-  <!--<ItemGroup>
+	<!-- Skip unfinished config 'GlobalConfig'-->
+	<!--<ItemGroup>
     <Compile Remove="Configs\GlobalConfig.cs" />
     <Compile Remove="Configs\GlobalModel\*.cs" />
   </ItemGroup>
@@ -37,12 +37,14 @@
     <None Include="Configs\GlobalModel\*.cs" />
   </ItemGroup>-->
 
-  <ItemGroup>
-	<PackageReference Include="Obsidian.API" Version="1.0.0-CI-20201111-163604">
-    <Private>false</Private>
-  </PackageReference>
-	<PackageReference Include="System.Text.Json" Version="5.0.0">
-	  <Private>false</Private>
-	</PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="Obsidian.API">
+			<HintPath>..\..\GitHub.ObsidianMC\Obsidian\Obsidian.API\bin\Debug\net5.0\Obsidian.API.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.Text.Json" Version="5.0.0">
+			<Private>false</Private>
+		</PackageReference>
+	</ItemGroup>
 </Project>

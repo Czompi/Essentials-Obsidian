@@ -1,24 +1,21 @@
 ﻿using Essentials.Settings;
 using Obsidian.API;
-using Obsidian.CommandFramework;
-using Obsidian.CommandFramework.Attributes;
-using Obsidian.CommandFramework.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Essentials.Commands
 {
-    public class EssentialsCommandModule : BaseCommandClass
+    public class EssentialsCommandModule
     {
 
          #region /essentials <reload|debug|commands>
         [Command("essentials", "ess")]
         [CommandInfo("Essentials available commands.", "/essentials <reload|debug|commands>")]
-        public async Task EssentialsAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/essentials <reload|debug|commands>"));
+        public async Task EssentialsAsync(CommandContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/essentials <reload|debug|commands>"));
 
         [CommandOverload]
-        public async Task EssentialsAsync(ObsidianContext Context, [Remaining] string args_)
+        public async Task EssentialsAsync(CommandContext Context, [Remaining] string args_)
         {
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
             var chatMessage = IChatMessage.Simple("");

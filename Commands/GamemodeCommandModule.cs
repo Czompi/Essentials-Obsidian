@@ -1,9 +1,6 @@
 ﻿using Essentials.Extensions;
 using Essentials.Settings;
 using Obsidian.API;
-using Obsidian.CommandFramework;
-using Obsidian.CommandFramework.Attributes;
-using Obsidian.CommandFramework.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Essentials.Commands
 {
-    public class GamemodeCommandModule : BaseCommandClass
+    public class GamemodeCommandModule
     {
 
         #region /gm <0|1|2|3>
         [Command("gm")]
         [CommandInfo("Switch gamemode.", "/gm <0|1|2|3>")]
-        public async Task GamemodeAsync(ObsidianContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/gm <0|1|2|3>"));
+        public async Task GamemodeAsync(CommandContext Context) => await Context.Player.SendMessageAsync(Globals.RenderCommandUsage("/gm <0|1|2|3>"));
 
         [CommandOverload]
-        public async Task GamemodeAsync(ObsidianContext Context, [Remaining] string args_)
+        public async Task GamemodeAsync(CommandContext Context, [Remaining] string args_)
         {
             var chatMessage = IChatMessage.Simple("");
             var args = args_.Contains(" ") ? args_.Split(" ").ToList() : new List<string> { args_ };
